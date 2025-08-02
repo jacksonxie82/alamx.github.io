@@ -2,64 +2,189 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>我的个人网站</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>AlamX Resume</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #ffffff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .lang-toggle {
+      text-align: right;
+      margin-bottom: 1rem;
+    }
+
+    .lang-toggle button {
+      padding: 6px 12px;
+      margin-left: 8px;
+      border: 1px solid #ccc;
+      background: #f0f0f0;
+      cursor: pointer;
+      font-size: 0.9rem;
+      border-radius: 4px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.3rem;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #999;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Jackson Xie</h1>
-      <nav>
+  <div class="container">
+    <div class="lang-toggle">
+      <button onclick="switchLang('zh')">中文</button>
+      <button onclick="switchLang('en')">English</button>
+      <button onclick="switchLang('ja')">日本語</button>
+    </div>
+
+    <!-- 中文版简历 -->
+    <div id="resume-zh">
+      <header>
+        <h1>AlamX</h1>
+        <p>男 ｜ 大连理工大学 · 软件工程 · 本科</p>
+      </header>
+
+      <section>
+        <h2>个人简介</h2>
+        <p>8 年前端开发经验，精通 React/Vue、数据可视化与工程化开发。</p>
+      </section>
+
+      <section>
+        <h2>专业技能</h2>
         <ul>
-          <li><a href="#about">关于我</a></li>
-          <li><a href="#projects">项目</a></li>
-          <li><a href="#contact">联系</a></li>
+          <li>熟练掌握 HTML/CSS/JavaScript，ES6+</li>
+          <li>精通 React/Vue 和 TypeScript</li>
+          <li>熟悉 ECharts、AntV 等可视化工具</li>
+          <li>了解小程序、Taro、组件库与微前端架构</li>
         </ul>
-      </nav>
+      </section>
+
+      <section>
+        <h2>工作经历</h2>
+        <ul>
+          <li><strong>猿辅导 - 斑马电商</strong>（2021.02 - 2024.01）</li>
+          <li><strong>知乎 - 广告平台</strong>（2018.08 - 2021.01）</li>
+          <li><strong>小米科技 - 云服务</strong>（2015.07 - 2018.08）</li>
+        </ul>
+      </section>
+
+      <footer>
+        <p>© 2025 AlamX</p>
+      </footer>
     </div>
-  </header>
 
-  <main>
-    <!-- 关于我 -->
-    <section id="about">
-      <div class="container">
-        <h2>👋 关于我</h2>
-        <p>你好，我是 Jackson，一名前端开发工程师，擅长 React、TypeScript、数据可视化和性能优化。</p>
-      </div>
-    </section>
+    <!-- English Resume -->
+    <div id="resume-en" class="hidden">
+      <header>
+        <h1>AlamX</h1>
+        <p>Male ｜ Bachelor of Software Engineering, Dalian University of Technology</p>
+      </header>
 
-    <!-- 项目展示 -->
-    <section id="projects">
-      <div class="container">
-        <h2>💼 项目</h2>
-        <div class="project-list">
-          <div class="project">
-            <h3>数据平台系统</h3>
-            <p>基于 React + ECharts 构建的可视化平台，支持图表配置与多维分析。</p>
-          </div>
-          <div class="project">
-            <h3>Hybrid H5 页面</h3>
-            <p>多语言支持 + v-html 渲染 + 图片上传，适配多个终端。</p>
-          </div>
-        </div>
-      </div>
-    </section>
+      <section>
+        <h2>Profile</h2>
+        <p>8 years of frontend experience. Proficient in React/Vue, data visualization, and frontend engineering.</p>
+      </section>
 
-    <!-- 联系方式 -->
-    <section id="contact">
-      <div class="container">
-        <h2>📫 联系我</h2>
-        <p>邮箱：jackson@example.com</p>
-        <p>GitHub: <a href="https://github.com/yourname" target="_blank">yourname</a></p>
-      </div>
-    </section>
-  </main>
+      <section>
+        <h2>Skills</h2>
+        <ul>
+          <li>Strong in HTML/CSS/JavaScript (ES6+)</li>
+          <li>Expert in React, Vue, and TypeScript</li>
+          <li>Familiar with ECharts, AntV, and data dashboards</li>
+          <li>Knowledge of Taro, Mini Programs, component systems, microfrontend</li>
+        </ul>
+      </section>
 
-  <footer>
-    <div class="container">
-      <p>© 2025 Jackson Xie. 保留所有权利。</p>
+      <section>
+        <h2>Work Experience</h2>
+        <ul>
+          <li><strong>Yuanfudao - Zebra eCommerce</strong> (2021.02 - 2024.01)</li>
+          <li><strong>Zhihu - Advertising Platform</strong> (2018.08 - 2021.01)</li>
+          <li><strong>Xiaomi - Cloud Services</strong> (2015.07 - 2018.08)</li>
+        </ul>
+      </section>
+
+      <footer>
+        <p>© 2025 AlamX</p>
+      </footer>
     </div>
-  </footer>
+
+    <!-- 日本語履歴書 -->
+    <div id="resume-ja" class="hidden">
+      <header>
+        <h1>AlamX（アラム・エックス）</h1>
+        <p>男性 ｜ 大連理工大学 · ソフトウェア工学 · 学士</p>
+      </header>
+
+      <section>
+        <h2>プロフィール</h2>
+        <p>フロントエンド開発歴8年。React/Vue、データ可視化、フロントエンドアーキテクチャに精通。</p>
+      </section>
+
+      <section>
+        <h2>スキル</h2>
+        <ul>
+          <li>HTML / CSS / JavaScript (ES6+) の豊富な知識</li>
+          <li>React、Vue、TypeScript に精通</li>
+          <li>ECharts、AntV などの可視化ツールを熟知</li>
+          <li>Taro、ミニプログラム、コンポーネント設計、マイクロフロントエンド経験あり</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>職務経歴</h2>
+        <ul>
+          <li><strong>Yuanfudao - Zebra eCommerce</strong>（2021年2月～2024年1月）</li>
+          <li><strong>Zhihu - 広告プラットフォーム</strong>（2018年8月～2021年1月）</li>
+          <li><strong>Xiaomi - クラウドサービス</strong>（2015年7月～2018年8月）</li>
+        </ul>
+      </section>
+
+      <footer>
+        <p>© 2025 AlamX</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    function switchLang(lang) {
+      const langs = ['zh', 'en', 'ja'];
+      langs.forEach(code => {
+        document.getElementById(`resume-${code}`).classList.toggle('hidden', code !== lang);
+      });
+    }
+  </script>
 </body>
 </html>
