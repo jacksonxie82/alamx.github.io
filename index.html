@@ -2,12 +2,17 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AlamX Resume</title>
   <style>
+    html {
+      font-size: 16px;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
       margin: 0;
-      padding: 2rem;
+      padding: 1rem;
       background: #ffffff;
       color: #333;
       line-height: 1.6;
@@ -16,30 +21,33 @@
     .container {
       max-width: 800px;
       margin: 0 auto;
+      padding: 0 1rem;
     }
 
     .lang-toggle {
-      text-align: right;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 0.5rem;
       margin-bottom: 1rem;
     }
 
     .lang-toggle button {
-      padding: 6px 12px;
-      margin-left: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
       border: 1px solid #ccc;
       background: #f0f0f0;
       cursor: pointer;
-      font-size: 0.9rem;
       border-radius: 4px;
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       margin-bottom: 0.5rem;
     }
 
     h2 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-top: 2rem;
       border-bottom: 1px solid #ddd;
       padding-bottom: 0.3rem;
@@ -59,6 +67,32 @@
       text-align: center;
       color: #999;
     }
+
+    @media (max-width: 600px) {
+      html {
+        font-size: 15px;
+      }
+
+      .lang-toggle {
+        justify-content: center;
+      }
+
+      .lang-toggle button {
+        font-size: 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+
+      body {
+        padding: 1rem 0.5rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -73,7 +107,7 @@
     <div id="resume-zh">
       <header>
         <h1>AlamX</h1>
-        <p>男 ｜ 大连理工大学 · 软件工程 · 本科</p>
+        <p>男 ｜ 前端开发 ｜ 大连理工大学 · 软件工程 · 本科 ｜ alamx1995@163.com</p>
       </header>
 
       <section>
@@ -84,10 +118,10 @@
       <section>
         <h2>专业技能</h2>
         <ul>
-          <li>熟练掌握 HTML/CSS/JavaScript，ES6+</li>
+          <li>精通 HTML/CSS/JavaScript，ES6+</li>
           <li>精通 React/Vue 和 TypeScript</li>
-          <li>熟悉 ECharts、AntV 等可视化工具</li>
-          <li>了解小程序、Taro、组件库与微前端架构</li>
+          <li>熟练掌握 ECharts、AntV 等可视化工具</li>
+          <li>熟练掌握小程序、Taro、组件库与微前端架构</li>
         </ul>
       </section>
 
@@ -96,7 +130,7 @@
         <ul>
           <li><strong>猿辅导 - 斑马电商</strong>（2021.02 - 2024.01）</li>
           <li><strong>知乎 - 广告平台</strong>（2018.08 - 2021.01）</li>
-          <li><strong>小米科技 - 云服务</strong>（2015.07 - 2018.08）</li>
+          <li><strong>小米 - 云服务</strong>（2015.07 - 2018.08）</li>
         </ul>
       </section>
 
@@ -109,21 +143,21 @@
     <div id="resume-en" class="hidden">
       <header>
         <h1>AlamX</h1>
-        <p>Male ｜ Bachelor of Software Engineering, Dalian University of Technology</p>
+        <p>Male ｜ Frontend Developer ｜ Bachelor of Software Engineering, Dalian University of Technology ｜ alamx1995@163.com</p>
       </header>
 
       <section>
         <h2>Profile</h2>
-        <p>8 years of frontend experience. Proficient in React/Vue, data visualization, and frontend engineering.</p>
+        <p>8 years of frontend development experience. Expert in React/Vue, data visualization, and engineering practices.</p>
       </section>
 
       <section>
         <h2>Skills</h2>
         <ul>
-          <li>Strong in HTML/CSS/JavaScript (ES6+)</li>
+          <li>Proficient in HTML/CSS/JavaScript (ES6+)</li>
           <li>Expert in React, Vue, and TypeScript</li>
-          <li>Familiar with ECharts, AntV, and data dashboards</li>
-          <li>Knowledge of Taro, Mini Programs, component systems, microfrontend</li>
+          <li>Skilled with ECharts, AntV and other data visualization tools</li>
+          <li>Experienced in Mini Programs, Taro, component library design, and microfrontend architecture</li>
         </ul>
       </section>
 
@@ -145,21 +179,21 @@
     <div id="resume-ja" class="hidden">
       <header>
         <h1>AlamX（アラム・エックス）</h1>
-        <p>男性 ｜ 大連理工大学 · ソフトウェア工学 · 学士</p>
+        <p>男性 ｜ フロントエンドエンジニア ｜ 大連理工大学 · ソフトウェア工学 · 学士 ｜ alamx1995@163.com</p>
       </header>
 
       <section>
         <h2>プロフィール</h2>
-        <p>フロントエンド開発歴8年。React/Vue、データ可視化、フロントエンドアーキテクチャに精通。</p>
+        <p>フロントエンド開発歴8年。React/Vue、データ可視化、フロントエンドエンジニアリングに精通。</p>
       </section>
 
       <section>
         <h2>スキル</h2>
         <ul>
-          <li>HTML / CSS / JavaScript (ES6+) の豊富な知識</li>
+          <li>HTML / CSS / JavaScript (ES6+) の熟練スキル</li>
           <li>React、Vue、TypeScript に精通</li>
           <li>ECharts、AntV などの可視化ツールを熟知</li>
-          <li>Taro、ミニプログラム、コンポーネント設計、マイクロフロントエンド経験あり</li>
+          <li>ミニプログラム、Taro、コンポーネント設計、マイクロフロントエンドの経験あり</li>
         </ul>
       </section>
 
