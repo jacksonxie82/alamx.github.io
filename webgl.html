@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebGL 炫酷效果合集</title>
+  <style>
+    body { margin: 0; background: black; overflow: hidden; }
+    #ui {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      padding: 6px 12px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="ui">
+    <button onclick="loadEffect('galaxy')">Galaxy 粒子星系</button>
+    <button onclick="loadEffect('water')">Shader 水波</button>
+    <button onclick="loadEffect('tunnel')">霓虹隧道</button>
+  </div>
+  <canvas id="webgl"></canvas>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+  <script>
+    let scene, camera, renderer, animationId;
+
+    function init() {
+      if (renderer) {
+        cancelAnimationFrame(animationId);
+        renderer.dispose();
+      }
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webgl'), antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+
+    function loadEffect(type) {
+      init();
+      if (type === 'galaxy') createGalaxy();
+      if (type === 'water') createWater();
+      if (type === 'tunnel') createTunnel();
+    }
+
+    function createGalaxy() {
+      const geometry = new THREE.BufferGeometry();
+      const particles = 5000;
+      const positions = new Float32Array(particles * 3);
+      for (let i = 0; i < particles * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 200;
+      }
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const material = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
+      const points = new THREE.Points(geometry, material);
+      scene.add(points);
+      camera.position.z = 50;
+      animate(() => {
+        points.rotation.y += 0.001;
+      });
+    }
+
+    function createWater() {
+      const geometry = new THREE.PlaneGeometry(100, 100, 100, 100);
+      const material = new THREE.MeshBasicMaterial({ color: 0x1e90ff, wireframe: true });
+      const plane = new THREE.Mesh(geometry, material);
+      scene.add(plane);
+      camera.position.z = 50;
+      animate(() => {
+        plane.rotation.x += 0.002;
+        plane.rotation.y += 0.003;
+      });
+    }
+
+    function createTunnel() {
+      const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+      const material = new THREE.MeshBasicMaterial({ color: 0xff00ff, wireframe: true });
+      const torus = new THREE.Mesh(geometry, material);
+      scene.add(torus);
+      camera.position.z = 30;
+      animate(() => {
+        torus.rotation.x += 0.01;
+        torus.rotation.y += 0.01;
+      });
+    }
+
+    function animate(update) {
+      function loop() {
+        animationId = requestAnimationFrame(loop);
+        update();
+        renderer.render(scene, camera);
+      }
+      loop();
+    }
+
+    // 默认加载
+    loadEffect('galaxy');
+  </script>
+</body>
+</html>
