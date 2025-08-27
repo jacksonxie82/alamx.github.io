@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,59 +14,49 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
       margin: 0;
       padding: 1rem;
-      background: #ffffff;
-      color: #333;
+      background: #f7f7f8;
+      color: #1f2937;
       line-height: 1.6;
     }
 
     .container {
       max-width: 1000px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-
-    #webgl {
-      display: none;
-      /* margin: 0 auto; */
-      width: 100%;
-      overflow: hidden;
-      outline: none;
-    }
-
-    .lang-toggle {
-      display: flex;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .lang-toggle button {
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      border: 1px solid #ccc;
-      background: #f0f0f0;
-      cursor: pointer;
-      border-radius: 4px;
+      background: #ffffff;
+      border: 1px solid #eeeeee;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
     h1 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
+      font-size: 2rem;
+      margin-bottom: 0.25rem;
     }
 
     h2 {
       font-size: 1.1rem;
-      margin-top: 2rem;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 0.3rem;
+      margin-top: 1.75rem;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 0.4rem;
     }
 
     ul {
       padding-left: 1.2rem;
+      margin-top: 0.4rem;
+    }
+
+    li {
+      margin: 0.35rem 0;
+    }
+
+    header p {
+      margin: 0.25rem 0 0 0;
+      color: #6b7280;
+      font-size: 0.95rem;
     }
 
     .hidden {
@@ -84,20 +75,12 @@
         font-size: 15px;
       }
 
-      .lang-toggle {
-        justify-content: center;
-      }
-
-      .lang-toggle button {
-        font-size: 1rem;
-      }
-
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
       }
 
       h2 {
-        font-size: 1rem;
+        font-size: 1.05rem;
       }
 
       body {
@@ -106,46 +89,47 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <div class="lang-toggle">
-      <button onclick="switchLang('zh')">中文</button>
-      <button onclick="switchLang('en')">English</button>
-      <button onclick="switchLang('ja')">日本語</button>
-      <button onclick="loadEffect('galaxy')">Galaxy 粒子星系</button>
-      <button onclick="loadEffect('water')">Shader 水波</button>
-      <button onclick="loadEffect('tunnel')">霓虹隧道</button>
-    </div>
-
     <!-- 中文版简历 -->
     <div id="resume-zh">
       <header>
         <h1>AlamX</h1>
-        <p>男 ｜ 前端开发 ｜ 大连理工大学 · 软件工程 · 本科 ｜ alamx1995@163.com</p>
+        <p>男 ｜ 30岁 ｜ 前端开发 ｜ alamx1995@163.com ｜ 深圳</p>
       </header>
 
       <section>
         <h2>个人简介</h2>
-        <p>10 年前端开发经验，精通 React、Vue、TypeScript、数据可视化与工程化开发。</p>
+        <p>深耕前端开发多年，精通 React、NextJS、TypeScript</p>
+        <p>擅长数据可视化、多端开发、组件库、微前端</p>
       </section>
 
       <section>
         <h2>专业技能</h2>
         <ul>
-          <li>精通 HTML/CSS/JavaScript，ES6+</li>
-          <li>精通 React、Vue 和 TypeScript</li>
-          <li>熟练掌握 ECharts、AntV 等可视化工具</li>
-          <li>熟练掌握小程序、Taro、组件库与微前端架构</li>
+          <li>主打：React+TS、NextJS、TailwindCSS、Zustand</li>
+          <li>常用库：framer-motion、websocket、protobuf、Headless UI</li>
+          <li>可视化：ECharts、AntV、ReCharts</li>
+          <li>其他：Taro、qiankun、Vue、Vite、pnpm</li> 
         </ul>
       </section>
 
       <section>
         <h2>工作经历</h2>
         <ul>
-          <li><strong>深圳游戏创业公司</strong></li>
-          <li><strong>猿辅导 - 斑马电商</strong></li>
-          <li><strong>知乎 - 广告平台</strong></li>
-          <li><strong>小米 - 云服务</strong></li>
+          <li><strong>某海外游戏创业公司</strong> ｜ 前端开发 ｜ 2025 - 至今</li>
+          <li><strong>因家庭和身体原因休息了一年半</strong></li>
+          <li><strong>猿辅导 - 斑马电商</strong> ｜ 前端 leader ｜ 2021 - 2024</li>
+          <li><strong>知乎 - 广告平台</strong> ｜ 前端开发 ｜ 2018 - 2021</li>
+          <li><strong>小米 - 云服务</strong> ｜ 前端开发 ｜ 2015 - 2018</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>学习经历</h2>
+        <ul>
+          <li>大连理工大学 · 软件工程 · 本科 · 2011 - 2015</li>
         </ul>
       </section>
 
@@ -153,180 +137,7 @@
         <p>© 2025 AlamX</p>
       </footer>
     </div>
-
-    <!-- English Resume -->
-    <div id="resume-en" class="hidden">
-      <header>
-        <h1>AlamX</h1>
-        <p>Male ｜ Frontend Developer ｜ Bachelor of Software Engineering, Dalian University of Technology ｜ alamx1995@163.com</p>
-      </header>
-
-      <section>
-        <h2>Profile</h2>
-        <p>10 years of frontend development experience. Expert in React, Vue, TypeScript, data visualization, and engineering practices.</p>
-      </section>
-
-      <section>
-        <h2>Skills</h2>
-        <ul>
-          <li>Proficient in HTML/CSS/JavaScript (ES6+)</li>
-          <li>Expert in React, Vue, and TypeScript</li>
-          <li>Skilled with ECharts, AntV and other data visualization tools</li>
-          <li>Experienced in Mini Programs, Taro, component library design, and microfrontend architecture</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Work Experience</h2>
-        <ul>
-          <li><strong>Shenzhen Game Startup</strong></li>
-          <li><strong>Yuanfudao - Zebra eCommerce</strong></li>
-          <li><strong>Zhihu - Advertising Platform</strong></li>
-          <li><strong>Xiaomi - Cloud Services</strong></li>
-        </ul>
-      </section>
-
-      <footer>
-        <p>© 2025 AlamX</p>
-      </footer>
-    </div>
-
-    <!-- 日本語履歴書 -->
-    <div id="resume-ja" class="hidden">
-      <header>
-        <h1>AlamX（アラム・エックス）</h1>
-        <p>男性 ｜ フロントエンドエンジニア ｜ 大連理工大学 · ソフトウェア工学 · 学士 ｜ alamx1995@163.com</p>
-      </header>
-
-      <section>
-        <h2>プロフィール</h2>
-        <p>フロントエンド開発歴10年。React、Vue、TypeScript、データ可視化、フロントエンドエンジニアリングに精通。</p>
-      </section>
-
-      <section>
-        <h2>スキル</h2>
-        <ul>
-          <li>HTML / CSS / JavaScript (ES6+) の熟練スキル</li>
-          <li>React、Vue、TypeScript に精通</li>
-          <li>ECharts、AntV などの可視化ツールを熟知</li>
-          <li>ミニプログラム、Taro、コンポーネント設計、マイクロフロントエンドの経験あり</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>職務経歴</h2>
-        <ul>
-          <li><strong>深圳ゲームスタートアップ</strong></li>
-          <li><strong>Yuanfudao - Zebra eCommerce</strong></li>
-          <li><strong>Zhihu - 広告プラットフォーム</strong></li>
-          <li><strong>Xiaomi - クラウドサービス</strong></li>
-        </ul>
-      </section>
-
-      <footer>
-        <p>© 2025 AlamX</p>
-      </footer>
-    </div>
-
-    <canvas id="webgl"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
   </div>
-
-  <script>
-    function switchLang(lang) {
-      const langs = ['zh', 'en', 'ja'];
-      // 展示对应语言简历，隐藏 webgl
-      document.getElementById('webgl').style.display = 'none';
-      langs.forEach(code => {
-        document.getElementById(`resume-${code}`).classList.toggle('hidden', code !== lang);
-      });
-    }
-  </script>
-
-  <script>
-    let scene, camera, renderer, animationId;
-
-    function init() {
-      // 展示 webgl，隐藏所有简历
-      document.getElementById('webgl').style.display = 'block';
-      const langs = ['zh', 'en', 'ja'];
-      langs.forEach(code => {
-        document.getElementById(`resume-${code}`).classList.add('hidden');
-      });
-      if (renderer) {
-        cancelAnimationFrame(animationId);
-        renderer.dispose();
-      }
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webgl'), antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
-    }
-
-    function loadEffect(type) {
-      init();
-      if (type === 'galaxy') createGalaxy();
-      if (type === 'water') createWater();
-      if (type === 'tunnel') createTunnel();
-    }
-
-    function createGalaxy() {
-      const geometry = new THREE.BufferGeometry();
-      const particles = 5000;
-      const positions = new Float32Array(particles * 3);
-      for (let i = 0; i < particles * 3; i++) {
-        positions[i] = (Math.random() - 0.5) * 200;
-      }
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      const material = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
-      const points = new THREE.Points(geometry, material);
-      scene.add(points);
-      camera.position.z = 50;
-      animate(() => {
-        points.rotation.y += 0.001;
-      });
-    }
-
-    function createWater() {
-      const geometry = new THREE.PlaneGeometry(100, 100, 100, 100);
-      const material = new THREE.MeshBasicMaterial({ color: 0x1e90ff, wireframe: true });
-      const plane = new THREE.Mesh(geometry, material);
-      scene.add(plane);
-      camera.position.z = 50;
-      animate(() => {
-        plane.rotation.x += 0.002;
-        plane.rotation.y += 0.003;
-      });
-    }
-
-    function createTunnel() {
-      const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-      const material = new THREE.MeshBasicMaterial({ color: 0xff00ff, wireframe: true });
-      const torus = new THREE.Mesh(geometry, material);
-      scene.add(torus);
-      camera.position.z = 30;
-      animate(() => {
-        torus.rotation.x += 0.01;
-        torus.rotation.y += 0.01;
-      });
-    }
-
-    function animate(update) {
-      function loop() {
-        animationId = requestAnimationFrame(loop);
-        update();
-        renderer.render(scene, camera);
-      }
-      loop();
-    }
-
-    // 默认加载
-    // loadEffect('galaxy');
-  </script>
 </body>
+
 </html>
