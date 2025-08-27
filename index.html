@@ -70,6 +70,20 @@
       color: #999;
     }
 
+    .time-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.15rem 0.25rem;
+      margin-left: 0.35rem;
+      font-size: 0.85rem;
+      line-height: 1;
+      color: #2563eb;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+    }
+
     @media (max-width: 600px) {
       html {
         font-size: 15px;
@@ -118,11 +132,10 @@
       <section>
         <h2>工作经历</h2>
         <ul>
-          <li><strong>某海外游戏创业公司</strong> ｜ 前端开发 ｜ 2025 - 至今</li>
-          <li><strong>因家庭和身体原因休息了一年半</strong></li>
-          <li><strong>猿辅导 - 斑马电商</strong> ｜ 前端 leader ｜ 2021 - 2024</li>
-          <li><strong>知乎 - 广告平台</strong> ｜ 前端开发 ｜ 2018 - 2021</li>
-          <li><strong>小米 - 云服务</strong> ｜ 前端开发 ｜ 2015 - 2018</li>
+          <li><strong>海外游戏创业公司</strong> ｜ 2025 - 至今 ｜ 深圳</li>
+          <li><strong>猿辅导 - 斑马电商</strong> ｜ 2021 - 2024 ｜ 北京</li>
+          <li><strong>知乎 - 广告平台</strong> ｜ 2018 - 2021 ｜ 北京</li>
+          <li><strong>小米 - 云服务</strong> ｜ 2015 - 2018 ｜ 北京</li>
         </ul>
       </section>
 
@@ -134,10 +147,28 @@
       </section>
 
       <footer>
-        <p>© 2025 AlamX</p>
+        <p>© 2025 AlamX<span id="current-time" class="time-badge"></span></p>
       </footer>
     </div>
   </div>
 </body>
 
 </html>
+<script>
+  (function () {
+    const el = document.getElementById('current-time');
+    if (!el) return;
+    function pad(n) { return n.toString().padStart(2, '0'); }
+    function format(d) {
+      const y = d.getFullYear();
+      const m = pad(d.getMonth() + 1);
+      const day = pad(d.getDate());
+      const hh = pad(d.getHours());
+      const mm = pad(d.getMinutes());
+      const ss = pad(d.getSeconds());
+      return `${y}-${m}-${day} ${hh}:${mm}:${ss}`;
+    }
+    const now = new Date();
+    el.textContent = format(now);
+  })();
+</script>
