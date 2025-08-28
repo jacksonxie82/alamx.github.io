@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>P/S 估值与买点计算器</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            padding: 20px;
+            background: #f7fafc;
+            color: #0f172a;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+            max-width: 880px;
+            margin: 12px auto;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            color: #334155;
+            margin-top: 10px;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-top: 6px;
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .col {
+            flex: 1;
+        }
+
+        button {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: none;
+            background: #10b981;
+            color: white;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        th,
+        td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #eef2f7;
+            text-align: left;
+        }
+
+        .muted {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .hint {
+            font-size: 13px;
+            color: #475569;
+            margin-top: 8px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h3>P/S 估值与买点计算器</h3>
+        <p class="muted">说明：输入市值或股价+流通股本，以及过去 12 个月营收（TTM），工具会计算当前 P/S，并按自定义目标 P/S 输出对应股价区间（同币种）。</p>
+
+        <div style="margin-top:12px;">
+            <label>选择输入方式</label>
+            <select id="mode" style="padding:8px;border-radius:6px;border:1px solid #e2e8f0;">
+                <option value="marketcap">方式 A：已知市值（Market Cap）</option>
+                <option value="price_shares">方式 B：股价 × 流通股本</option>
+            </select>
+        </div>
+
+        <div id="mode-marketcap" style="margin-top:12px;">
+            <label>市值（Market Cap） — 输入数字（单位：同币种，例如 HKD 或 RMB）</label>
+            <input id="marketCap" type="number" step="any" placeholder="例如：100000000000（表示 1,000 亿）" />
+        </div>
+
+        <div id="mode-price_shares" style="display:none; margin-top:12px;">
+            <div class="row">
+                <div class="col">
+                    <label>当前股价（Price）</label>
+                    <input id="price" type="number" step="any" placeholder="例如 100（HKD）" />
+                </div>
+                <div class="col">
+                    <label>流通股本（Shares）— 股数（例如 3,000,000,000）</label>
+                    <input id="shares" type="number" step="any" placeholder="例如 3000000000" />
+                </div>
+            </div>
+            <div class="hint">市值 = 股价 × 股数</div>
+        </div>
+
+        <div style="margin-top:12px;">
+            <label>TTM 营收（过去 12 个月 Revenue） — 同币种数值</label>
+            <input id="ttmRevenue" type="number" step="any" placeholder="例如 200000000000（表示 2,000 亿）" />
+            <div class="hint">如果你的市值单位为 HKD，而营收是人民币，请把营收先按汇率换算成 HKD（可在本页下方输入汇率转换）。</div>
+        </div>
+
+        <div style="margin-top:12px;">
+            <label>（可选）汇率转换：如果营收是 RMB，而你输入市值为 HKD，请填写 HKD per RMB（例如 1.15）</label>
+            <input id="fx" type="number" step="any" placeholder="汇率：HKD / RMB，若无需转换留空或填 1" />
+        </div>
+
+        <div style="margin-top:12px;">
+            <label>目标 P/S 列表（逗号分隔，可编辑）</label>
+            <input id="psTargets" type="text" value="1.4,1.6,2.0,2.4,2.6" />
+        </div>
+
+        <button id="calcBtn">计算并生成区间</button>
+
+        <div id="result" style="margin-top:14px;display:none;"></div>
+        <div id="tableWrap" style="display:none;"></div>
+
+        <div style="margin-top:14px;">
+            <p class="muted">使用说明：</p>
+            <ol>
+                <li>保证市值与营收为 <strong>相同币种</strong>（或填写 fx 做换算）。</li>
+                <li>工具将计算当前 P/S = 市值 / TTM Revenue；并按目标 P/S 计算对应市值与对应股价（若输入股价+股数则会输出股价目标）。</li>
+                <li>输出的价格区间仅基于 P/S 模型，实际是否买入需结合业务面/竞争/现金流等判断。</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        const modeSelector = document.getElementById('mode');
+        modeSelector.addEventListener('change', e => {
+            const mode = e.target.value;
+            document.getElementById('mode-marketcap').style.display = mode === 'marketcap' ? 'block' : 'none';
+            document.getElementById('mode-price_shares').style.display = mode === 'price_shares' ? 'block' : 'none';
+        });
+
+        function numberOrZero(v) { const n = parseFloat(v); return isNaN(n) ? 0 : n; }
+
+        document.getElementById('calcBtn').addEventListener('click', () => {
+            const mode = document.getElementById('mode').value;
+            let marketCap = numberOrZero(document.getElementById('marketCap').value);
+            const price = numberOrZero(document.getElementById('price').value);
+            const shares = numberOrZero(document.getElementById('shares').value);
+            let ttm = numberOrZero(document.getElementById('ttmRevenue').value);
+            const fx = numberOrZero(document.getElementById('fx').value) || 1;
+            const psTargetsRaw = document.getElementById('psTargets').value.trim();
+            const psTargets = psTargetsRaw.split(',').map(s => parseFloat(s)).filter(x => !isNaN(x)).sort((a, b) => a - b);
+
+            if (mode === 'price_shares') {
+                if (!price || !shares) {
+                    alert('请输入股价和流通股本（股数）。');
+                    return;
+                }
+                marketCap = price * shares;
+            }
+
+            if (!marketCap || !ttm) {
+                alert('请填写市值（或股价+股数）和 TTM 营收（同币种）。');
+                return;
+            }
+
+            // 把 ttm 按 fx 换成与市值相同币种（marketCap 以相同币种）
+            // 假设 ttm 要乘以 fx (例如 ttm in RMB, fx=HKD per RMB -> ttm_in_HKD = ttm * fx)
+            const ttmConverted = ttm * fx;
+
+            const currentPS = marketCap / ttmConverted;
+
+            // 创建结果显示
+            const resDiv = document.getElementById('result');
+            resDiv.style.display = 'block';
+            resDiv.innerHTML = `<div class="card" style="margin-top:10px; padding:12px;">
+      <strong>当前 P/S:</strong> ${currentPS.toFixed(3)} &nbsp;&nbsp; <span class="muted">（市值 ${marketCap.toLocaleString()} / TTM ${ttmConverted.toLocaleString()}）</span>
+    </div>`;
+
+            // 生成表格：每个目标 P/S 对应的目标市值和若输入shares则给出目标股价
+            const wrap = document.getElementById('tableWrap');
+            wrap.style.display = 'block';
+
+            let html = '<table><thead><tr><th>目标 P/S</th><th>对应目标市值（相同币种）</th><th>若提供股本则对应股价</th></tr></thead><tbody>';
+            psTargets.forEach(ps => {
+                const targetMarketCap = ps * ttmConverted;
+                const targetPrice = (shares > 0) ? (targetMarketCap / shares) : NaN;
+                html += `<tr>
+        <td>${ps}</td>
+        <td>${Math.round(targetMarketCap).toLocaleString()}</td>
+        <td>${isNaN(targetPrice) ? '-' : targetPrice.toFixed(2)}</td>
+      </tr>`;
+            });
+            html += '</tbody></table>';
+            wrap.innerHTML = html;
+
+            // 补充建议文字
+            const suggestion = document.createElement('div');
+            suggestion.style.marginTop = '10px';
+            suggestion.className = 'card';
+            const currentPriceText = (shares > 0) ? ` 当前隐含股价（price）: ${(marketCap / shares).toFixed(2)}` : '';
+            suggestion.innerHTML = `<div><strong>快捷结论</strong> ${currentPriceText}</div>
+      <div class="muted" style="margin-top:8px;">
+        - 若你认为行业短期补贴会收敛并恢复至常态 P/S，可重点关注 P/S=${psTargets[1] || psTargets[0]} 附近的价格作为长期布局参考；<br/>
+        - 若想更保守，逢低并分批买入（分批仓位），并监测订单质量与履约成本的恢复情况；<br/>
+        - 该模型仅基于 P/S（销售乘数），不含债务/现金/一次性项，实际估值需结合现金流折现与业务面判断。
+      </div>`;
+            wrap.appendChild(suggestion);
+        });
+    </script>
+</body>
+
+</html>
